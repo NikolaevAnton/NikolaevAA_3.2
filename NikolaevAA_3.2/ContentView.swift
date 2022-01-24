@@ -12,43 +12,46 @@ struct ContentView: View {
 
     @FocusState private var rgbActiveValue: ColorPresent.RGB?
     
-    @State private var red = ColorPresent(rgb: .red, valueDouble: 100.0, value: "100")
-    @State private var green = ColorPresent(rgb: .green, valueDouble: 100.0, value: "100")
-    @State private var blue = ColorPresent(rgb: .blue, valueDouble: 100.0, value: "100")
+    @State private var red = ColorPresent(valueDouble: 100.0, value: "100")
+    @State private var green = ColorPresent(valueDouble: 100.0, value: "100")
+    @State private var blue = ColorPresent(valueDouble: 100.0, value: "100")
     
     @State private var redText = "100"
     @State private var greenText = "100"
     @State private var blueText = "100"
     
+    private func setValue(currentColor: ColorPresent.RGB, currentValue: String) {
+        if let valueInt = Int(currentValue), valueInt > -1 && valueInt < 256 {
+            switch currentColor {
+            case .red:
+                red.valueDouble = Double(valueInt)
+            case .green:
+                green.valueDouble = Double(valueInt)
+            case .blue:
+                blue.valueDouble = Double(valueInt)
+            }
+        } else {
+            redText = "\(Int(red.valueDouble))"
+            greenText = "\(Int(green.valueDouble))"
+            blueText = "\(Int(blue.valueDouble))"
+        }
+    }
+    
     
     private func textFieldReadValue() {
-
+        
         if rgbActiveValue == .red {
-            red.value = redText
-            if let valueInt = Int(red.value), valueInt > -1 && valueInt < 256 {
-                red.valueDouble = Double(valueInt)
-            } else {
-                redText = "\(Int(red.valueDouble))"
-            }
+            setValue(currentColor: .red, currentValue: redText)
         }
         
         if rgbActiveValue == .green {
-            green.value = greenText
-            if let valueInt = Int(green.value), valueInt > -1 && valueInt < 256 {
-                green.valueDouble = Double(valueInt)
-            } else {
-                greenText = "\(Int(green.valueDouble))"
-            }
+            setValue(currentColor: .green, currentValue: greenText)
         }
         
         if rgbActiveValue == .blue {
-            blue.value = blueText
-            if let valueInt = Int(blue.value), valueInt > -1 && valueInt < 256 {
-                blue.valueDouble = Double(valueInt)
-            } else {
-                blueText = "\(Int(blue.valueDouble))"
-            }
+            setValue(currentColor: .blue, currentValue: blueText)
         }
+
         
         rgbActiveValue = nil
         

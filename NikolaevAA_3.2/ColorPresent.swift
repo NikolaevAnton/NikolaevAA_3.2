@@ -15,21 +15,7 @@ struct ColorPresent {
         case blue = "blue"
     }
     
-    let rgb: RGB
-    
     var valueDouble: Double
     var value: String
-    /*
-    var value: String {
-        get {
-            return "\(Int(valueDouble))"
-        }
-        set {
-            if let valueInt = Int(newValue), valueInt > -1 && valueInt < 256 {
-                self.value = newValue
-                self.valueDouble = Double(valueInt)
-            }
-        }
-    }
-     */
+    
 }
